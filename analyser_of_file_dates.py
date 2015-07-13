@@ -6,7 +6,9 @@ import os.path, os,glob, time, csv, re
 
 class photo:
     def __init__(self,file):
-        self.time=os.path.getctime(file)
+        self.ctime=os.path.getctime(file)
+        self.mtime=os.path.getmtime(file)
+        self.time=self.mtime
         self.long_name=file
         if file.find('bd_bokeh') >0:
             self.bk='prom'
@@ -32,6 +34,7 @@ class album:
         os.chdir(path)
         for file in sorted(glob.glob("*.jpg")):
             f=photo(file)
+            #print(f)
             self.append(f)
 
     def __add__(self, other):
